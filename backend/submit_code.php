@@ -6,12 +6,12 @@
  * Time: 下午1:59
  */
 
-if (isset($_GET['uid']) && isset($_GET['code'])) {
+if (isset($_POST['uid']) && isset($_POST['code'])) {
     try {
         $db = new PDO('mysql:host=127.0.0.1;dbname=wzmt', 'root', 'zxc');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $db->prepare("select code from user_code where uid = :uid");
-        $stmt->bindParam(':uid', $_GET['uid'], PDO::PARAM_INT);
+        $stmt->bindParam(':uid', $_POST['uid'], PDO::PARAM_INT);
         $stmt->execute();
 
         if ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -24,23 +24,23 @@ if (isset($_GET['uid']) && isset($_GET['code'])) {
 
         } else {
             $stmt = $db->prepare("select * from codes where ex_code = :ex_code");
-            $stmt->bindParam(':ex_code', $_GET['code'], PDO::PARAM_INT);
+            $stmt->bindParam(':ex_code', $_POST['code'], PDO::PARAM_INT);
             $stmt->execute();
 
             if ($codeInfo = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 if ($codeInfo['used']) {
                     $db = null;
-                    echo json_encode(['code' => '400', 'msg' => '该兑换码已被使用']);
+                    echo json_encode(['code' => '200', 'msg' => '该兑换码已被使用']);
                 } else {
                     $stmt = $db->prepare("update codes set used = 1 where ex_code = :ex_code");
-                    $stmt->bindParam(':ex_code', $_GET['code'], PDO::PARAM_INT);
+                    $stmt->bindParam(':ex_code', $_POST['code'], PDO::PARAM_INT);
                     $stmt->execute();
                     $db = null;
                     header('Location: /codes/' . $codeInfo['barcode'] . '.png');
                 }
             } else {
                 $db = null;
-                echo json_encode(['code' => '400', 'msg' => '兑换码不存在!']);
+                echo json_encode(['code' => '200', 'msg' => '兑换码不存在!']);
             }
         }
 

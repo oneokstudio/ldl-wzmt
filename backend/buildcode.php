@@ -32,7 +32,7 @@ try {
 }
 
 //根据以上条件绘制条形码
-$drawing = new BCGDrawing('', $color_white);
+$drawing = new BCGDrawing(__DIR__ . '/HELLO.png', $color_white);
 if($drawException) {
     $drawing->drawException($drawException);
 } else {
@@ -41,8 +41,7 @@ if($drawException) {
 }
 
 // 生成PNG格式的图片
-header('Content-Type: image/png');
+//header('Content-Type: image/png');
 
 
 $drawing->finish(BCGDrawing::IMG_FORMAT_PNG);
-
