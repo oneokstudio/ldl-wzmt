@@ -20,8 +20,8 @@ if (isset($_POST['uid']) && isset($_POST['code'])) {
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $db = null;
-            header('Location: /codes/' . $result['barcode'] . '.png');
-
+            echo json_encode(['code' => '200', 'claimed' => 'true',
+                              'codeUrl' => dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $result['barcode'] . '.png']);
         } else {
             $stmt = $db->prepare("select * from codes where ex_code = :ex_code");
             $stmt->bindParam(':ex_code', $_POST['code'], PDO::PARAM_INT);
@@ -30,17 +30,17 @@ if (isset($_POST['uid']) && isset($_POST['code'])) {
             if ($codeInfo = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 if ($codeInfo['used']) {
                     $db = null;
-                    echo json_encode(['code' => '200', 'msg' => '该兑换码已被使用']);
+                    echo json_encode(['code' => '200', 'claimed' => 'false', 'msg' => '该兑换码已被使用']);
                 } else {
                     $stmt = $db->prepare("update codes set used = 1 where ex_code = :ex_code");
                     $stmt->bindParam(':ex_code', $_POST['code'], PDO::PARAM_INT);
                     $stmt->execute();
                     $db = null;
-                    header('Location: /codes/' . $codeInfo['barcode'] . '.png');
+                    echo json_encode(['code' => '200', 'claimed' => 'false', 'codeurl' => dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $result['barcode'] . '.png']);
                 }
             } else {
                 $db = null;
-                echo json_encode(['code' => '200', 'msg' => '兑换码不存在!']);
+                echo json_encode(['code' => '200', 'claimed' => 'false', 'msg' => '兑换码不存在!']);
             }
         }
 

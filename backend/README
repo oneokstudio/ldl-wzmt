@@ -1,4 +1,4 @@
-1. check_exist.php：用来判断某个UID是否已经有对应的兑换码，前端通过get方法发送uid过来，如果有，会跳转到对应的二维码图片，
-                    如果没有，返回code=200，其他情况返回400或者500
-2. submit_code.php：用来提交兑换码，需要post uid和code两个参数过来，如果兑换码有效，则直接跳转到对应的二维码图片，否则
-                    返回code=200和msg
+1. check_exist.php：用来判断某个UID是否已经有对应的兑换码，前端通过get方法发送uid过来，如果有，返回claimed=true和codeurl
+                    如果没有，返回claimed=false，否则返回code和对应的错误信息msg
+2. submit_code.php：用来提交兑换码，需要post uid和code两个参数过来，如果兑换码有效，则返回code=200、claimed=false和codeurl，
+                    否则返回code和对应的错误信息msg

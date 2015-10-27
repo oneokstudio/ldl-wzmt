@@ -7,6 +7,7 @@
  */
 
 
+
 if (isset($_GET['uid'])) {
     try {
         $db = new PDO('mysql:host=127.0.0.1;dbname=wzmt', 'root', 'zxc');
@@ -21,10 +22,11 @@ if (isset($_GET['uid'])) {
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $db = null;
-            header('Location: /codes/' . $result['barcode'] . '.png');
+            echo json_encode(['code' => '200', 'claimed' => 'true',
+                              'codeUrl' => dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $result['barcode'] . '.png']);
         } else {
             $db = null;
-            echo json_encode(['code' => '200']);
+            echo json_encode(['code' => '200', 'claimed' => 'false']);
         }
     } catch (PDOException $e) {
         echo json_encode(['code' => '500', 'msg' => '服务器繁忙，请稍后重试']);
