@@ -2,7 +2,12 @@ $(function () {
   var wrapperH = $('.wrapper').height();
   var $code = $('.code');
   var uid = 1;
-
+  var android = false;
+  var ua = navigator.userAgent.toLowerCase();
+  if (/(android)/i.test(ua)) {
+    android = true;
+  }
+  
   $code.css({top: (wrapperH - 84 - 30) + 'px'});
   getUid();
 
@@ -19,7 +24,7 @@ $(function () {
     if (android) {
       uid = window.web && web.getUserId().uid;
       checkCode();
-    } else if (ios) {
+    } else {
       connectWebViewJavascriptBridge(function (bridge) {
         bridge.callHandler('getUserId', {}, function(response) {
           alert(response);
