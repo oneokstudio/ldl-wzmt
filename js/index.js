@@ -23,11 +23,15 @@ $(function () {
   function getUid () {
     if (android) {
       var result = window.web && web.getUserInfo();
-      alert(result)
       uid = (JSON.parse(result)).uid;
+      alert(uid);
       checkCode();
     } else {
+      alert(0);
       connectWebViewJavascriptBridge(function (bridge) {
+        alert(1)
+        bridge.init();
+        alert(2)
         bridge.callHandler('getUserInfo', {}, function(response) {
           alert(response);
           uid = (JSON.parse(response)).uid;
