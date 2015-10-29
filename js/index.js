@@ -7,7 +7,7 @@ $(function () {
   if (/(android)/i.test(ua)) {
     android = true;
   }
-  
+
   $code.css({top: (wrapperH - 84 - 30) + 'px'});
   getUid();
 
@@ -22,11 +22,13 @@ $(function () {
   }
   function getUid () {
     if (android) {
-      uid = window.web && web.getUserId().uid;
+      var result = window.web && web.getUserInfo();
+      alert(result)
+      uid = (JSON.parse(result)).uid;
       checkCode();
     } else {
       connectWebViewJavascriptBridge(function (bridge) {
-        bridge.callHandler('getUserId', {}, function(response) {
+        bridge.callHandler('getUserInfo', {}, function(response) {
           alert(response);
           uid = (JSON.parse(response)).uid;
           alert(uid);
