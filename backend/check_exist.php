@@ -13,12 +13,12 @@ if (isset($_GET['uid'])) {
         $db = new PDO('mysql:host=127.0.0.1;dbname=wzmt', 'root', 'zxc');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $db->prepare("select code from user_code where uid = :uid");
-        $stmt->bindParam(':uid', $_GET['uid'], PDO::PARAM_INT);
+        $stmt->bindParam(':uid', $_GET['uid'], PDO::PARAM_STR);
         $stmt->execute();
 
         if ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $stmt = $db->prepare("select barcode from codes where ex_code = :ex_code");
-            $stmt->bindParam(':ex_code', $user['code'], PDO::PARAM_INT);
+            $stmt->bindParam(':ex_code', $user['code'], PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $db = null;
