@@ -27,12 +27,10 @@ $(function () {
       alert(uid);
       checkCode();
     } else {
-      alert(0);
       connectWebViewJavascriptBridge(function (bridge) {
-        alert(1)
         bridge.init();
-        alert(2)
-        bridge.callHandler('getUserInfo', {}, function(response) {
+        alert(33)
+        bridge.callHandler('getUserId', {}, function(response) {
           alert(response);
           uid = (JSON.parse(response)).uid;
           alert(uid);
