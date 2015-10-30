@@ -22,8 +22,9 @@ if (isset($_GET['uid'])) {
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $db = null;
+            $url = dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $result['barcode'] . '.png';
             echo json_encode(['code' => '200', 'claimed' => 'true',
-                              'codeUrl' => dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $result['barcode'] . '.png']);
+                              'codeUrl' => $url], JSON_UNESCAPED_SLASHES);
         } else {
             $db = null;
             echo json_encode(['code' => '200', 'claimed' => 'false']);
