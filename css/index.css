@@ -63,7 +63,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0,0,0,.4);
   left: 0;
   top: 0;
   display: none;
@@ -101,11 +101,9 @@ body {
   border-radius: 3px;
 }
 .code {
-  position: absolute;
-  width: 30%;
-  top: 468px;
-  left: 35%;
-  z-index: 11111;
+  display: none;
+  margin: 20px auto;
+  width: 100%;
 }
 .form-part {
   background: #FFFFFF;
@@ -158,4 +156,12 @@ body {
 .swipeMove {
   -webkit-animation: swipeMove 1s ease-in infinite;
   animation: swipeMove 1s ease-in infinite
+}
+.rule {
+  color: white;
+  position: absolute;
+  left: 9%;
+  font-size: 1.1rem;
+  width: 82%;
+  top: 363px;
 }

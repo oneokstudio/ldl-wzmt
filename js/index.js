@@ -1,14 +1,18 @@
 $(function () {
   var wrapperH = $('.wrapper').height();
+  var wrapperW = $('.wrapper').width();
   var $code = $('.code');
-  var uid = 1;
+  var uid = -1;
   var android = false;
   var ua = navigator.userAgent.toLowerCase();
   if (/(android)/i.test(ua)) {
     android = true;
   }
 
-  $code.css({top: (wrapperH - 84 - 30) + 'px'});
+  setTimeout(function () {
+    $code.css({top: (wrapperH - 84 - 10) + 'px'});
+    $('.rule').css({top: wrapperW*0.96 + 'px'});
+  }, 1000);
   getUid();
 
   function connectWebViewJavascriptBridge (callback) {
@@ -24,16 +28,12 @@ $(function () {
     if (android) {
       var result = window.web && web.getUserInfo();
       uid = (JSON.parse(result)).uid;
-      alert(uid);
       checkCode();
     } else {
       connectWebViewJavascriptBridge(function (bridge) {
         bridge.init();
-        alert(33)
         bridge.callHandler('getUserId', {}, function(response) {
-          alert(response);
           uid = (JSON.parse(response)).uid;
-          alert(uid);
           checkCode();
         })
       });
@@ -42,12 +42,11 @@ $(function () {
   function checkCode () {
     $.ajax({
       method:'get',
-      url:'/backend/check_exist.php',
+      url:'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
       data: {uid: uid}
     }).done(function (res) {
       res = JSON.parse(res);
-      console.log(res.code);
-      if (res.code != 200) {
+      if (res.code == 200) {
         $('.modal').show();
       }
     });
@@ -58,19 +57,22 @@ $(function () {
 
     if (code != '') {
       $.ajax({
-        method:'get',
-        url:'/backend/submit_code.php',
+        method:'post',
+        url:'http://studio.windra.in/ldl-wzmt/backend/submit_code.php',
         data: {
           uid: uid,
           code: code
         }
       }).done(function (res) {
-        console.log(res);
-        if (res.code != 200) {
+        res = JSON.parse(res);
+        if (res.code == 200) {
           $('.form-part').hide();
+          $('.code').attr('src', res.codeurl).css({display: 'block'});
           $('.tip-part').show().fadeOut(4000, function() {
             $('.modal').hide();
           });
+        } else {
+          alert(res.msg);
         }
       });
     } else {
