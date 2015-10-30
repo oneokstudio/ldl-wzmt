@@ -36,6 +36,10 @@ if (isset($_POST['uid']) && isset($_POST['code'])) {
                     $stmt = $db->prepare("update codes set used = 1 where ex_code = :ex_code");
                     $stmt->bindParam(':ex_code', $_POST['code'], PDO::PARAM_STR);
                     $stmt->execute();
+                    $stmt = $db->prepare("insert into user_code(uid, code) values(:uid, :code)");
+                    $stmt->bindParam(':uid', $_POST['uid'], PDO::PARAM_STR);
+                    $stmt->bindParam(':code', $_POST['code'], PDO::PARAM_STR);
+                    $stmt->execute();
                     $db = null;
                     $url = dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) . '/codes/' . $codeInfo['barcode'] . '.png';
                     echo json_encode(['code' => '200', 'codeurl' => $url], JSON_UNESCAPED_SLASHES);
