@@ -44,19 +44,20 @@ $(function () {
   function checkCode () {
     alert(0);
     $.ajax({
-      method:'get',
-      url:'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
-      data: {uid: uid}
-    }).done(function (res) {
-      alert(res);
-      res = JSON.parse(res);
-      if (res.code == 200 && res.claimed == 'false') {
-        $('.modal').show();
-        alert(1);
-      } else if (res.code == 200 && res.claimed == 'true') {
-        $('.code').attr('src', res.codeUrl).css({display: 'block'});
-      } else {
-        alert(res.msg);
+      url: 'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
+      data: {uid: uid},
+      type: 'GET',
+      success: function (res) {
+        alert(res);
+        res = JSON.parse(res);
+        if (res.code == 200 && res.claimed == 'false') {
+          $('.modal').show();
+          alert(1);
+        } else if (res.code == 200 && res.claimed == 'true') {
+          $('.code').attr('src', res.codeUrl).css({display: 'block'});
+        } else {
+          alert(res.msg);
+        }
       }
     });
   }
