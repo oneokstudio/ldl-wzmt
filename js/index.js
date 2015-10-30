@@ -45,9 +45,11 @@ $(function () {
       url:'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
       data: {uid: uid}
     }).done(function (res) {
+      alert(res);
       res = JSON.parse(res);
-      if (res.code == 200) {
+      if (res.code == 200 && !res.claimed) {
         $('.modal').show();
+        alert(1);
       }
     });
   }
