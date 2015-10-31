@@ -13,8 +13,8 @@ $(function () {
     $code.css({top: (wrapperH - 84 - 10) + 'px'});
     $('.rule').css({top: wrapperW*0.96 + 'px'});
   }, 1000);
-  getUid();
-  //checkCode();
+  //getUid();
+  checkCode();
 
   function connectWebViewJavascriptBridge (callback) {
     if (window.WebViewJavascriptBridge) {
