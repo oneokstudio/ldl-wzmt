@@ -13,8 +13,8 @@ $(function () {
     $code.css({top: (wrapperH - 84 - 10) + 'px'});
     $('.rule').css({top: wrapperW*0.96 + 'px'});
   }, 1000);
-  //getUid();
-  checkCode();
+  getUid();
+  //checkCode();
 
   function connectWebViewJavascriptBridge (callback) {
     if (window.WebViewJavascriptBridge) {
@@ -48,11 +48,9 @@ $(function () {
       data: {uid: uid},
       type: 'GET',
       success: function (res) {
-        alert(res);
         res = JSON.parse(res);
         if (res.code == 200 && res.claimed == 'false') {
           $('.modal').show();
-          alert(1);
         } else if (res.code == 200 && res.claimed == 'true') {
           $('.code').attr('src', res.codeUrl).css({display: 'block'});
         } else {
