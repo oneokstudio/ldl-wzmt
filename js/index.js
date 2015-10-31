@@ -35,14 +35,12 @@ $(function () {
         bridge.init();
         bridge.callHandler('getUserId', {}, function(response) {
           uid = (JSON.parse(response)).uid;
-          alert(uid);
           checkCode();
         })
       });
     }
   }
   function checkCode () {
-    alert(0);
     $.ajax({
       url: 'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
       data: {uid: uid},
@@ -76,7 +74,7 @@ $(function () {
         if (res.code == 200) {
           $('.form-part').hide();
           $('.code').attr('src', res.codeurl).css({display: 'block'});
-          $('.tip-part').show().fadeOut(4000, function() {
+          $('.tip-part').show().fadeOut(3000, function() {
             $('.modal').hide();
           });
         } else {
