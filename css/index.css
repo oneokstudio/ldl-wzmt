@@ -103,7 +103,7 @@ body {
 .code {
   display: none;
   margin: 20px auto;
-  width: 100%;
+  width: 80%;
 }
 .form-part {
   background: #FFFFFF;
@@ -163,5 +163,5 @@ body {
   left: 9%;
   font-size: 1.1rem;
   width: 82%;
-  top: 363px;
+  top: 340px;
 }
