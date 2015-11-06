@@ -165,3 +165,7 @@ body {
   width: 82%;
   top: 340px;
 }
+
+@media all and (max-width: 320px){
+
+}

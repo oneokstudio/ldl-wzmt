@@ -1,6 +1,4 @@
 $(function () {
-  var wrapperH = $('.wrapper').height();
-  var wrapperW = $('.wrapper').width();
   var $code = $('.code');
   var uid = 2;
   var android = false;
@@ -9,10 +7,20 @@ $(function () {
     android = true;
   }
 
-  setTimeout(function () {
+  var img = new Image();
+  img.src = 'img/bg.jpg';
+  img.onload = function () {
+    var wrapperH = $('.wrapper').height();
+    var wrapperW = $('.wrapper').width();
     $code.css({top: (wrapperH - 84 - 10) + 'px'});
-    $('.rule').css({top: wrapperW*0.96 + 'px'});
-  }, 1000);
+    if (wrapperW <= 320) {
+      $('.rule').css({top: wrapperW*0.90625 + 'px'});
+      $code.css({marginTop: '5px'});
+    } else {
+      $('.rule').css({top: wrapperW*0.96 + 'px'});
+    }
+  };
+
   getUid();
   //checkCode();
 
