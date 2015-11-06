@@ -36,5 +36,21 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/index.js"></script>
+<script>
+  var $code = $('.code');
+  var img = new Image();
+  img.src = 'img/bg.jpg';
+  img.onload = function () {
+    var wrapperH = $('.wrapper').height();
+    var wrapperW = $('.wrapper').width();
+    $code.css({top: (wrapperH - 84 - 10) + 'px'});
+    if (wrapperW <= 320) {
+      $('.rule').css({top: wrapperW*0.90625 + 'px'});
+      $code.css({marginTop: '5px'});
+    } else {
+      $('.rule').css({top: wrapperW*0.96 + 'px'});
+    }
+  };
+</script>
 </body>
 </html>
