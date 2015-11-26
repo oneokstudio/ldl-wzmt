@@ -20,11 +20,11 @@ $(function () {
   }
   function getUid () {
     if (android) {
-      setTimeout(function () {
+      //setTimeout(function () {
         var result = window.web && web.getUserInfo();
         uid = (JSON.parse(result)).uid;
         checkCode();
-      }, 1000);
+      //}, 1000);
     } else {
       connectWebViewJavascriptBridge(function (bridge) {
         bridge.init();
