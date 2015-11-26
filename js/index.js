@@ -2,8 +2,6 @@ $(function () {
   var uid = 2;
   var android = false;
   var ua = navigator.userAgent.toLowerCase();
-  alert(ua)
-  alert(/(android)/i.test(ua));
   if (/(android)/i.test(ua)) {
     android = true;
   }
@@ -22,10 +20,14 @@ $(function () {
   }
   function getUid () {
     if (android) {
-      var result = window.web && web.getUserInfo();
-      uid = (JSON.parse(result)).uid;
-      alert(uid);
-      checkCode();
+      setTimeout(function () {
+        alert(window.web);
+        var result = window.web && web.getUserInfo();
+        alert(result);
+        uid = (JSON.parse(result)).uid;
+        alert(uid);
+        checkCode();
+      }, 1000);
     } else {
       connectWebViewJavascriptBridge(function (bridge) {
         bridge.init();
