@@ -22,6 +22,7 @@ $(function () {
     if (android) {
       var result = window.web && web.getUserInfo();
       uid = (JSON.parse(result)).uid;
+      alert(uid);
       checkCode();
     } else {
       connectWebViewJavascriptBridge(function (bridge) {
@@ -38,6 +39,7 @@ $(function () {
       url: 'http://studio.windra.in/ldl-wzmt/backend/check_exist.php',
       data: {uid: uid},
       type: 'GET',
+      cache:false,
       success: function (res) {
         res = JSON.parse(res);
         if (res.code == 200 && res.claimed == 'false') {
@@ -61,7 +63,8 @@ $(function () {
         data: {
           uid: uid,
           code: code
-        }
+        },
+        cache:false
       }).done(function (res) {
         res = JSON.parse(res);
         if (res.code == 200) {
