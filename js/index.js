@@ -2,6 +2,8 @@ $(function () {
   var uid = 2;
   var android = false;
   var ua = navigator.userAgent.toLowerCase();
+  alert(ua)
+  alert(/(android)/i.test(ua));
   if (/(android)/i.test(ua)) {
     android = true;
   }
