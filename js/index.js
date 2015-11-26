@@ -21,11 +21,8 @@ $(function () {
   function getUid () {
     if (android) {
       setTimeout(function () {
-        alert(window.web);
         var result = window.web && web.getUserInfo();
-        alert(result);
         uid = (JSON.parse(result)).uid;
-        alert(uid);
         checkCode();
       }, 1000);
     } else {
